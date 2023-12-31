@@ -19,6 +19,7 @@ public class HideTrigger : MonoBehaviour
         {
             door = GameObject.FindObjectOfType<Door>();
         }
+
         voiceActivityBar.SetActive(false);
     }
 
@@ -38,19 +39,19 @@ public class HideTrigger : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            door.playerIsInside = true;
+            // door.playerIsInside = true;
             playerIsInside = true;
             voiceActivityBar.SetActive(true);
         }
     }
 
-/*    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             playerIsInside = true;
         }
-    }*/
+    }
 
     private void OnTriggerExit(Collider other)
     {

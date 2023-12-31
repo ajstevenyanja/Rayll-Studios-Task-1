@@ -4,9 +4,22 @@ public class AudioLoudnessDetection : MonoBehaviour
 {
     public int sampleWindow = 1024;
     private AudioClip microphoneClip;
+    private static AudioLoudnessDetection instance;
 
     private void Start()
     {
+        // Ensure there is only one instance of AudioLoudnessDetection in the scene
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            MicrophoneToAudioClip();
+        }
+        else
+        {
+            Destroy(this);
+        }
+
         MicrophoneToAudioClip();
     }
 

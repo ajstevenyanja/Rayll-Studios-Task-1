@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 // Simple script to Handle the logic for the 'one sided door':
@@ -37,7 +35,7 @@ public class Door : MonoBehaviour
         angleX = doorTransform.eulerAngles.x;
         angleZ = doorTransform.eulerAngles.z;
 
-        // figure out worldspace Y rotation
+        // figure out world space Y rotation for opening and closing
         if (isOpen)
         {
             openedAngle = transform.eulerAngles.y;
@@ -46,7 +44,7 @@ public class Door : MonoBehaviour
         else
         {
             closedAngle = transform.eulerAngles.y;
-            openedAngle = !invertedRotation ? closedAngle - rotationAngle : closedAngle + rotationAngle;
+            openedAngle = !invertedRotation ? closedAngle + rotationAngle : closedAngle + rotationAngle;
         }
     }
 
@@ -62,9 +60,6 @@ public class Door : MonoBehaviour
         {
             yield break;
         }
-
-        // remember "on input if player is inside"
-        playerIsInside = hideTrigger.playerIsInside;
 
         animationRunning = true;
 
@@ -87,12 +82,12 @@ public class Door : MonoBehaviour
         doorTransform.eulerAngles = new Vector3(angleX, newRotation, angleZ);
 
         // only allow door fade if player is inside
-        if (playerIsInside)
+        if (hideTrigger.playerIsInside)
         {
             doorFader.PlayDoorFade(IsOpen);
-
         }
 
+        // toggle flag
         isOpen = !isOpen;
 
         animationRunning = false;

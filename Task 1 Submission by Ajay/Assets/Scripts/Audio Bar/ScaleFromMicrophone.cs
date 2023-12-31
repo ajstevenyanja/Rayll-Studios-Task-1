@@ -23,6 +23,14 @@ public class ScaleFromMicrophone : MonoBehaviour
     [SerializeField] float highLimit = 0.7f;
     [SerializeField] Color highColor = Color.red;
 
+    private void Start()
+    {
+        if (loudnessDetector == null)
+        {
+            loudnessDetector = GameObject.FindObjectOfType<AudioLoudnessDetection>();
+        }
+    }
+
     private void Update()
     {
         float loudness = loudnessDetector.GetLoudnessFromMicrophone() * loudnessMultiplier;
